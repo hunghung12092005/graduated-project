@@ -30,9 +30,9 @@
             </button>
         </form>
         <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
-        <div v-if="userInfo" class="user-info">
+        <!-- <div v-if="userInfo" class="user-info">
             <h2>Xin chào, {{ userInfo.name }}!</h2>
-        </div>
+        </div> -->
     </div>
 
 </template>
