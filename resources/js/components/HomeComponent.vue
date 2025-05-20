@@ -313,7 +313,6 @@ body {
     margin: auto;
     overflow: hidden;
     position: relative;
-    width: 960px;
 }
 
 .slider::before,
