@@ -12,9 +12,14 @@
         <li><router-link to="/about">About</router-link></li>
         <li><router-link to="/contact">Contact</router-link></li>
         <li><router-link to="/blog">Blog</router-link></li>
-        <li><router-link to="/menu-list">Menu</router-link></li>
+        <li class="dropdown">
+          <a href="#">Menu</a>
+          <ul class="dropdown-menu">
+            <li><router-link to="/menu-list">Menu List</router-link></li>
+            <li><router-link to="/menu">Menu Details</router-link></li>
+          </ul>
+        </li>
         <li><router-link to="/testJwt">testJwt</router-link></li>
-        <li><router-link to="/menu">menu</router-link></li>
         <li><router-link to="/reservation">Reservation</router-link></li>
         <li v-if="isAdmin">
           <a @click.prevent="adminPanel">Vào admin</a>
@@ -23,7 +28,6 @@
           <span>Xin chào, {{ userInfo.name }}!</span>
           <a @click.prevent="logout">Đăng Xuất</a>
         </li>
-
         <li v-else>
           <router-link to="/login">Đăng Nhập</router-link>
         </li>
@@ -39,14 +43,14 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
-import axiosConfig from '../axiosConfig'; // Import axiosConfig
+import axiosConfig from '../axiosConfig';
 
 const headerRef = ref(null);
 const navbarRef = ref(null);
 const navbarActive = ref(false);
 const userInfo = ref(null);
 const isLogin = ref(false);
-const isAdmin = ref(false); // Biến để kiểm tra quyền admin
+const isAdmin = ref(false);
 
 const toggleMenu = () => {
   navbarActive.value = !navbarActive.value;
@@ -58,26 +62,21 @@ const handleScroll = () => {
   }
 };
 
-// Hàm lấy thông tin người dùng
 const fetchUserInfo = async () => {
   try {
     const response = await axiosConfig.get('/api/protected');
-    userInfo.value = response.data.user; // Lưu thông tin người dùng
-    isLogin.value = true; // Đánh dấu là đã đăng nhập
-   // console.log(1);
-    // Kiểm tra vai trò
+    userInfo.value = response.data.user;
+    isLogin.value = true;
     if (userInfo.value.role === 'admin') {
-      isAdmin.value = true; // Đánh dấu là admin
+      isAdmin.value = true;
     } else {
-      isAdmin.value = false; // Không phải admin
+      isAdmin.value = false;
     }
-
   } catch (error) {
     console.error('Error fetching user info:', error.response ? error.response.data : error.message);
   }
 };
 
-// Xử lý token và thông tin người dùng từ query params
 const urlParams = new URLSearchParams(window.location.search);
 const token = urlParams.get('token');
 const user = urlParams.get('user');
@@ -85,14 +84,11 @@ const user = urlParams.get('user');
 if (token && user) {
   localStorage.setItem('token', token);
   localStorage.setItem('userInfo', user);
-  userInfo.value = JSON.parse(user); // Lưu thông tin người dùng
-  // Chuyển hướng về trang chính
-  // window.location.href = '/'; // Sửa lại đường dẫn nếu cần
+  userInfo.value = JSON.parse(user);
 }
 
-// Lifecycle hooks
 onMounted(() => {
-  fetchUserInfo(); // Gọi hàm lấy thông tin người dùng khi component được mount
+  fetchUserInfo();
   window.addEventListener('scroll', handleScroll);
 });
 
@@ -100,24 +96,16 @@ onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
 });
 
-// Hàm logout
 const logout = () => {
-  localStorage.removeItem('token'); // Xóa token
-  localStorage.removeItem('userInfo'); // Xóa thông tin người dùng
-  window.location.href = '/'; // Chuyển hướng
+  localStorage.removeItem('token');
+  localStorage.removeItem('userInfo');
+  window.location.href = '/';
 };
 
-// Hàm adminPanel
 const adminPanel = () => {
-  window.location.href = '/admin'; // Chuyển hướng
+  window.location.href = '/admin';
 };
 </script>
-
-<style scoped>
-/* Các style của bạn tại đây */
-</style>
-
-
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Turret+Road:wght@400;500;700;800&display=swap');
@@ -174,6 +162,11 @@ header {
   color: #ffffff !important;
 }
 
+/* Đảm bảo chữ trong dropdown menu không bị ảnh hưởng bởi header.active */
+:global(header.active .dropdown-menu a) {
+  color: #000000 !important;
+}
+
 .logo {
   display: flex;
   align-items: center;
@@ -211,14 +204,47 @@ header {
   display: none;
 }
 
-/* Styles cho phần thân */
-main {
-  padding-top: 80px;
-  /* Để tránh nội dung bị che bởi header */
-  min-height: calc(100vh - 80px);
-  /* Chiếm toàn bộ chiều cao còn lại */
-  width: 100%;
+.dropdown {
+  position: relative;
 }
 
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  min-width: 150px;
+  z-index: 1000;
+  display: none;
+  padding: 5px 0;
+}
 
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu li {
+  list-style: none;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 20px;
+  color: #000000;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.dropdown-menu a:hover {
+  background: var(--main-color);
+  color: #078ff7;
+}
+
+main {
+  padding-top: 80px;
+  min-height: calc(100vh - 80px);
+  width: 100%;
+}
 </style>
