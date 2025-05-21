@@ -1,0 +1,114 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f7fb;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    /* Đảm bảo body có chiều cao để hỗ trợ cuộn */
+    overflow-y: auto;
+    /* Cho phép cuộn trên body */
+}
+
+.sidebar {
+    height: 100vh;
+    background-color: #fff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    padding-top: 20px;
+    position: fixed;
+    width: 250px;
+    z-index: 1000;
+}
+
+.sidebar .header {
+    text-align: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.sidebar .header img {
+    width: 30px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.sidebar .header span {
+    font-size: 1.5rem;
+    vertical-align: middle;
+    color: #dc3545;
+}
+
+.sidebar .profile {
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.sidebar .profile img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.sidebar .profile p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.sidebar .profile .icons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.sidebar .profile .icons i {
+    font-size: 1.2rem;
+    margin: 0 5px;
+    color: #6c757d;
+}
+
+.sidebar .nav-link {
+    color: #6c757d;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar .nav-link i {
+    margin-right: 10px;
+}
+
+.sidebar .nav-link .badge {
+    margin-left: auto;
+}
+
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+    padding-top: 60px;
+    min-height: 100vh;
+    
+    overflow-y: auto;
+    
+}
+
+.navbar-top {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 250px;
+    right: 0;
+    z-index: 900;
+    height: 50px;
+    transition: background-color 0.1s ease;
+}
+
+.navbar-top.scrolled {
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.1s ease;
+}
