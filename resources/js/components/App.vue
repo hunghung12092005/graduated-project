@@ -103,7 +103,7 @@ const logout = () => {
 };
 
 const adminPanel = () => {
-  window.location.href = '/admin';
+  window.location.href = '/admin-dashboard';
 };
 </script>
 
