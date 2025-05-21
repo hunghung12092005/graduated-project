@@ -37,7 +37,7 @@
 
     <!-- Room Availability and Reservation -->
     <div class="row mt-4">
-        <div class="col-md-4">
+        <div class="col-md-5">
             <div class="card p-3 shadow-sm rounded-3 h-100">
                 <h5 class="fw-bold">Room Availability</h5>
                 <div class="row mt-3">
@@ -62,7 +62,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-7">
             <div class="card p-3 shadow-sm rounded-3 h-100 d-flex flex-column">
                 <h5 class="fw-bold">Reservation</h5>
                 <div class="legend d-flex justify-content-end mb-2">
